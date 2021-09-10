@@ -1,11 +1,10 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
 import { PostsModule } from './posts/posts.module';
 import { GraphQLModule } from '@nestjs/graphql';
 import { join } from 'path';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { ViewModule } from './view/view.module';
 
 @Module({
   imports: [
@@ -16,8 +15,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       sortSchema: true,
     }),
     TypeOrmModule.forRoot(),
+    ViewModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
 })
 export class AppModule {}

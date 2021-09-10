@@ -21,5 +21,5 @@
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false
   },
-  "exclude": ["node_modules", "ssr.config.js", "dist", ".ssr"]
+  "exclude": ["node_modules", "dist"]
 }

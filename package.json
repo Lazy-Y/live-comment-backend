@@ -26,8 +26,6 @@
     "@nestjs/graphql": "^9.0.4",
     "@nestjs/platform-express": "^8.0.6",
     "@nestjs/typeorm": "^8.0.2",
-    "@react-ssr/core": "^0.8.0",
-    "@react-ssr/nestjs-express": "^0.24.0",
     "apollo-server-express": "^3.3.0",
     "graphql": "^15.5.3",
     "next": "^11.1.2",
