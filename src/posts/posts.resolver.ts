@@ -4,8 +4,8 @@ import {
   Query,
   Mutation,
   ID,
-  ResolveProperty,
   Parent,
+  ResolveField,
 } from '@nestjs/graphql';
 import { User } from 'src/users/user.model';
 import { UsersService } from 'src/users/users.service';
@@ -20,8 +20,13 @@ export class PostsResolver {
   ) {}
 
   @Query(() => Post)
-  async post(@Args('id', { type: () => ID }) id: number) {
+  post(@Args('id', { type: () => ID }) id: number) {
     return this.postsService.findOne(id);
+  }
+
+  @Query(() => [Post])
+  allPosts() {
+    return this.postsService.findAll();
   }
 
   @Mutation(() => Post)
@@ -33,7 +38,7 @@ export class PostsResolver {
     return await this.postsService.genCreatePost(user, content);
   }
 
-  @ResolveProperty()
+  @ResolveField()
   public async user(@Parent() post: Post): Promise<User> {
     return this.usersService.findOne(post.userId);
   }

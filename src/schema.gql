@@ -18,10 +18,10 @@ type Post {
   id: Float!
   updatedAt: DateTime!
   user: User!
-  userId: Float!
 }
 
 type Query {
+  allPosts: [Post!]!
   post(id: ID!): Post!
   user(id: ID!): User!
 }

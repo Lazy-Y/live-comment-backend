@@ -18,6 +18,10 @@ export class PostsService {
     });
   }
 
+  findAll(): Promise<Post[]> {
+    return this.postsRepository.find();
+  }
+
   findOne(id: number): Promise<Post> {
     return this.postsRepository.findOne(id);
   }
@@ -27,7 +31,7 @@ export class PostsService {
       .createQueryBuilder()
       .insert()
       .into(Post)
-      .values([{ content, user }])
+      .values([{ content, userId: user.id }])
       .returning('*')
       .execute();
     return result.generatedMaps[0] as Post;

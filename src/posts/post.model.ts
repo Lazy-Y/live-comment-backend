@@ -22,7 +22,6 @@ export class Post {
   content: string;
 
   @Column()
-  @Field()
   userId: number;
 
   @Field(() => User)
