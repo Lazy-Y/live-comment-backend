@@ -13,10 +13,10 @@ export class User {
   @Field()
   userName: string;
 
-  @OneToMany(() => Post, (post) => post.user)
+  @OneToMany(() => Post, post => post.user)
   @Field(() => [Post])
   posts: Post[];
 
-  @OneToMany(() => Post, (post) => post.userConnection)
+  @OneToMany(() => Post, post => post.userConnection)
   postConnection: Promise<Post[]>;
 }

@@ -12,6 +12,14 @@ type Mutation {
   createUser(userName: String!): User!
 }
 
+type PaginatedPost {
+  edges: [PostEdge!]
+  hasNext: Boolean!
+  hasPrev: Boolean!
+  nodes: [Post!]
+  totalCount: Int!
+}
+
 type Post {
   content: String!
   createdAt: DateTime!
@@ -20,9 +28,15 @@ type Post {
   user: User!
 }
 
+type PostEdge {
+  cursor: String!
+  node: Post!
+}
+
 type Query {
   allPosts: [Post!]!
   post(id: ID!): Post!
+  queryPosts: PaginatedPost!
   user(id: ID!): User!
 }
 

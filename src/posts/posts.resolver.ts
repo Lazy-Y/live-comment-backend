@@ -1,23 +1,13 @@
-import {
-  Args,
-  Resolver,
-  Query,
-  Mutation,
-  ID,
-  Parent,
-  ResolveField,
-} from '@nestjs/graphql';
+import { Args, Resolver, Query, Mutation, ID, Parent, ResolveField } from '@nestjs/graphql';
 import { User } from 'src/users/user.model';
 import { UsersService } from 'src/users/users.service';
 import { Post } from './post.model';
+import { PaginatedPost } from './post.pagination.model';
 import { PostsService } from './posts.service';
 
 @Resolver(() => Post)
 export class PostsResolver {
-  constructor(
-    private postsService: PostsService,
-    private usersService: UsersService,
-  ) {}
+  constructor(private postsService: PostsService, private usersService: UsersService) {}
 
   @Query(() => Post)
   post(@Args('id', { type: () => ID }) id: number) {
@@ -27,6 +17,11 @@ export class PostsResolver {
   @Query(() => [Post])
   allPosts() {
     return this.postsService.findAll();
+  }
+
+  @Query(() => PaginatedPost)
+  async queryPosts(): Promise<PaginatedPost> {
+    return this.postsService.queryAll();
   }
 
   @Mutation(() => Post)

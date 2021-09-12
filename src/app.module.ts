@@ -4,7 +4,6 @@ import { PostsModule } from './posts/posts.module';
 import { GraphQLModule } from '@nestjs/graphql';
 import { join } from 'path';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { ViewModule } from './view/view.module';
 
 @Module({
   imports: [
@@ -15,7 +14,6 @@ import { ViewModule } from './view/view.module';
       sortSchema: true,
     }),
     TypeOrmModule.forRoot(),
-    ViewModule,
   ],
 })
 export class AppModule {}

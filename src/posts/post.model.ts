@@ -27,7 +27,7 @@ export class Post {
   @Field(() => User)
   user: User;
 
-  @ManyToOne(() => User, (user) => user.postConnection, { primary: true })
+  @ManyToOne(() => User, user => user.postConnection, { primary: true })
   @JoinColumn({ name: 'userId' })
   userConnection: Promise<User>;
 
