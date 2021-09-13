@@ -3,8 +3,8 @@ import { PostsService } from './posts.service';
 import { PostsResolver } from './posts.resolver';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Post } from './post.model';
-import { UsersService } from 'src/users/users.service';
-import { User } from 'src/users/user.model';
+import { UsersService } from 'src/server/users/users.service';
+import { User } from 'src/server/users/user.model';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Post, User]), TypeOrmModule.forRoot()],

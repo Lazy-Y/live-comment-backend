@@ -1,9 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { PageArgs } from 'src/graphql/pagination';
-import { buildPaginator } from 'src/paginator';
-import Paginator, { PagingResult } from 'src/paginator/Paginator';
-import { User } from 'src/users/user.model';
+import { PageArgs } from 'src/server/graphql/pagination';
+import { User } from 'src/server/users/user.model';
 import { Connection, Repository } from 'typeorm';
 import { Post } from './post.model';
 import { PaginatedPost } from './post.pagination.model';

@@ -2,8 +2,8 @@ import { Memoize } from 'typescript-memoize';
 import { Field, ObjectType, Int, InputType } from '@nestjs/graphql';
 import { Type } from '@nestjs/common';
 import { SelectQueryBuilder } from 'typeorm';
-import { buildPaginator, PaginationOptions, PagingQuery } from 'src/paginator';
-import Paginator, { Order } from 'src/paginator/Paginator';
+import { buildPaginator, PaginationOptions, PagingQuery } from '../paginator';
+import Paginator, { Order } from '../paginator/Paginator';
 
 @InputType()
 export class PageArgs implements PagingQuery {

@@ -1,5 +1,5 @@
 import { ObjectType } from '@nestjs/graphql';
-import Pagination from 'src/graphql/pagination';
+import Pagination from 'src/server/graphql/pagination';
 import { Post } from './post.model';
 
 @ObjectType()

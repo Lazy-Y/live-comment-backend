@@ -1,7 +1,7 @@
 import { Args, Resolver, Query, Mutation, ID, Parent, ResolveField } from '@nestjs/graphql';
-import { PageArgs } from 'src/graphql/pagination';
-import { User } from 'src/users/user.model';
-import { UsersService } from 'src/users/users.service';
+import { PageArgs } from 'src/server/graphql/pagination';
+import { User } from 'src/server/users/user.model';
+import { UsersService } from 'src/server/users/users.service';
 import { Post } from './post.model';
 import { PaginatedPost } from './post.pagination.model';
 import { PostsService } from './posts.service';

@@ -1,5 +1,5 @@
 import { Memoize } from 'typescript-memoize';
-import { IEdgeType } from 'src/graphql/pagination';
+import { IEdgeType } from 'src/server/graphql/pagination';
 import { Brackets, ObjectType, OrderByCondition, SelectQueryBuilder, WhereExpression } from 'typeorm';
 
 import { atob, btoa, encodeByType, decodeByType, pascalToUnderscore } from './utils';
