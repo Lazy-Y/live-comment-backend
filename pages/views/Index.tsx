@@ -1,6 +1,10 @@
 import { NextPage, NextPageContext } from 'next'
-import React, { Suspense } from 'react'
+import React from 'react'
 import App from './App'
+import dynamic from "next/dynamic";
+const DynamicApp = dynamic(() => import("./App"), {
+  ssr: false,
+});
 
 // The component's props type
 type PageProps = {
@@ -17,9 +21,7 @@ const Page: NextPage<PageProps> = ({ title }) => {
   return (
     <div>
       <h1>{title}</h1>
-      {/* <Suspense fallback={'Loading...'}>
-        <App />
-      </Suspense> */}
+      <DynamicApp />
     </div>
   )
 }

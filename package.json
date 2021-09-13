@@ -27,6 +27,7 @@
     "@nestjs/platform-express": "^8.0.6",
     "@nestjs/typeorm": "^8.0.2",
     "apollo-server-express": "^3.3.0",
+    "experimental-react-suspender": "^1.0.5",
     "graphql": "^15.5.3",
     "nest-next": "^9.4.0",
     "nestjs-typeorm-paginate": "^2.6.2",

@@ -1,5 +1,7 @@
+import { Suspense } from "react"
+
 const App = () => {
-  return <div>My App</div>
+  return <Suspense fallback={'loading...'}> <div>My App</div></Suspense>
 }
 
 export default App;
