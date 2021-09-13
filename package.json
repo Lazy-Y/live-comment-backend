@@ -28,6 +28,7 @@
     "@nestjs/typeorm": "^8.0.2",
     "apollo-server-express": "^3.3.0",
     "graphql": "^15.5.3",
+    "nest-next": "^9.4.0",
     "nestjs-typeorm-paginate": "^2.6.2",
     "next": "^11.1.2",
     "pg": "^8.7.1",
