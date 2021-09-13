@@ -7,7 +7,7 @@ import Paginator, { Order } from 'src/paginator/Paginator';
 
 @InputType()
 export class PageArgs implements PagingQuery {
-  @Field({ defaultValue: 10 })
+  @Field({ defaultValue: 3 })
   limit: number;
 
   @Field({ nullable: true })

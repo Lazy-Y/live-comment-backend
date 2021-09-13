@@ -15,7 +15,7 @@ type Mutation {
 input PageArgs {
   afterCursor: String
   beforeCursor: String
-  limit: Float = 10
+  limit: Float = 3
   order: String = "ASC"
 }
 

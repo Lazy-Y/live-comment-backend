@@ -76,6 +76,8 @@ export default class Paginator<Entity> {
   @Memoize()
   public async paginate(): Promise<IEdgeType<Entity>[]> {
     const entities = await this.appendPagingQuery().getMany();
+    console.log('entities', entities);
+
     const hasMore = entities.length > this.limit;
 
     if (hasMore) {
