@@ -1,3 +1,4 @@
+import { Memoize } from 'typescript-memoize';
 import { IEdgeType } from 'src/graphql/pagination';
 import { Brackets, ObjectType, OrderByCondition, SelectQueryBuilder, WhereExpression } from 'typeorm';
 
@@ -62,22 +63,17 @@ export default class Paginator<Entity> {
     this.order = order;
   }
 
-  public async hasNext(): Promise<boolean> {
-    const builder = this.builder.clone();
-    builder.andWhere(new Brackets(where => this.buildCursorQuery(where, this.decode(this.nextAfterCursor as string))));
-    builder.take(this.limit + 1);
-    builder.orderBy('ASC');
-    return (await builder.getCount()) > 0;
+  public async getNextAfterCursor(): Promise<string | null> {
+    await this.paginate();
+    return this.nextAfterCursor;
   }
 
-  public async hasPrev(): Promise<boolean> {
-    const builder = this.builder.clone();
-    builder.andWhere(new Brackets(where => this.buildCursorQuery(where, this.decode(this.nextBeforeCursor as string))));
-    builder.take(this.limit + 1);
-    builder.orderBy('DESC');
-    return (await builder.getCount()) > 0;
+  public async getNextBeforeCursor(): Promise<string | null> {
+    await this.paginate();
+    return this.nextBeforeCursor;
   }
 
+  @Memoize()
   public async paginate(): Promise<IEdgeType<Entity>[]> {
     const entities = await this.appendPagingQuery().getMany();
     const hasMore = entities.length > this.limit;
@@ -103,13 +99,6 @@ export default class Paginator<Entity> {
     }
 
     return this.toPagingResult(entities);
-  }
-
-  private getCursor(): Cursor {
-    return {
-      afterCursor: this.nextAfterCursor,
-      beforeCursor: this.nextBeforeCursor,
-    };
   }
 
   private appendPagingQuery(): SelectQueryBuilder<Entity> {

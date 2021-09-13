@@ -1,4 +1,5 @@
 import { Args, Resolver, Query, Mutation, ID, Parent, ResolveField } from '@nestjs/graphql';
+import { PageArgs } from 'src/graphql/pagination';
 import { User } from 'src/users/user.model';
 import { UsersService } from 'src/users/users.service';
 import { Post } from './post.model';
@@ -20,8 +21,8 @@ export class PostsResolver {
   }
 
   @Query(() => PaginatedPost)
-  async queryPosts(): Promise<PaginatedPost> {
-    return this.postsService.queryAll();
+  async queryPosts(@Args('pageArg', { type: () => PageArgs }) args: PageArgs): Promise<PaginatedPost> {
+    return this.postsService.queryAll(args);
   }
 
   @Mutation(() => Post)

@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { PageArgs } from 'src/graphql/pagination';
 import { buildPaginator } from 'src/paginator';
 import Paginator, { PagingResult } from 'src/paginator/Paginator';
 import { User } from 'src/users/user.model';
@@ -25,14 +26,14 @@ export class PostsService {
     return this.postsRepository.find();
   }
 
-  async queryAll(): Promise<PaginatedPost> {
-    return new PaginatedPost(this.postsRepository.createQueryBuilder('post'), {
+  async queryAll(pageArgs: PageArgs): Promise<PaginatedPost> {
+    return new PaginatedPost(this.postsRepository.createQueryBuilder(Post.name.toLowerCase()), {
       entity: Post,
-      // paginationKeys: ['id'],
-      // query: {
-      //   limit: 3,
-      //   order: 'ASC',
-      // },
+      paginationKeys: ['id'],
+      query: {
+        order: 'ASC',
+        ...pageArgs,
+      },
     });
   }
 

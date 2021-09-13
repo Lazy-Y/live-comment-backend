@@ -1,9 +1,24 @@
 import { Memoize } from 'typescript-memoize';
-import { Field, ObjectType, Int } from '@nestjs/graphql';
+import { Field, ObjectType, Int, InputType } from '@nestjs/graphql';
 import { Type } from '@nestjs/common';
 import { SelectQueryBuilder } from 'typeorm';
-import { buildPaginator, PaginationOptions } from 'src/paginator';
-import Paginator from 'src/paginator/Paginator';
+import { buildPaginator, PaginationOptions, PagingQuery } from 'src/paginator';
+import Paginator, { Order } from 'src/paginator/Paginator';
+
+@InputType()
+export class PageArgs implements PagingQuery {
+  @Field({ defaultValue: 10 })
+  limit: number;
+
+  @Field({ nullable: true })
+  afterCursor?: string;
+
+  @Field({ nullable: true })
+  beforeCursor?: string;
+
+  @Field({ defaultValue: 'ASC' })
+  order: Order;
+}
 
 export interface IEdgeType<T> {
   cursor: string;
@@ -17,8 +32,8 @@ export interface IPaginatedType<T> {
   edges: Promise<IEdgeType<T>[]>;
   nodes: Promise<T[]>;
   totalCount: Promise<number>;
-  hasNext: Promise<boolean>;
-  hasPrev: Promise<boolean>;
+  nextAfterCursor: Promise<string | null>;
+  nextBeforeCursor: Promise<string | null>;
 }
 
 function Paginated<T>(classRef: Type<T>): Type<IPaginatedType<T>> {
@@ -54,22 +69,18 @@ function Paginated<T>(classRef: Type<T>): Type<IPaginatedType<T>> {
       return this.queryBuilder.clone().getCount();
     }
 
-    @Field(() => Boolean)
-    public get hasNext() {
-      return this.paginator.hasNext();
+    @Field(() => String, { nullable: true })
+    public get nextAfterCursor() {
+      return this.paginator.getNextAfterCursor();
     }
 
-    @Field(() => Boolean)
-    public get hasPrev() {
-      return this.paginator.hasPrev();
+    @Field(() => String, { nullable: true })
+    public get nextBeforeCursor() {
+      return this.paginator.getNextBeforeCursor();
     }
   }
 
   return PaginatedType as Type<IPaginatedType<T>>;
-}
-
-export interface IPaginationResolver<T> {
-  totalCount(page: IPaginatedType<T>): Promise<number>;
 }
 
 class Pagination {

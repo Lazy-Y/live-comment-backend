@@ -12,10 +12,17 @@ type Mutation {
   createUser(userName: String!): User!
 }
 
+input PageArgs {
+  afterCursor: String
+  beforeCursor: String
+  limit: Float = 10
+  order: String = "ASC"
+}
+
 type PaginatedPost {
   edges: [PostEdge!]
-  hasNext: Boolean!
-  hasPrev: Boolean!
+  nextAfterCursor: String
+  nextBeforeCursor: String
   nodes: [Post!]
   totalCount: Int!
 }
@@ -36,7 +43,7 @@ type PostEdge {
 type Query {
   allPosts: [Post!]!
   post(id: ID!): Post!
-  queryPosts: PaginatedPost!
+  queryPosts(pageArg: PageArgs!): PaginatedPost!
   user(id: ID!): User!
 }
 
