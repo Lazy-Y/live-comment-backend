@@ -1,6 +1,5 @@
 import { NextPage, NextPageContext } from 'next'
 import React from 'react'
-import App from './App'
 import dynamic from "next/dynamic";
 const DynamicApp = dynamic(() => import("./App"), {
   ssr: false,
