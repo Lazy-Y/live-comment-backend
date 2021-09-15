@@ -73,6 +73,14 @@ export default class Paginator<Entity> {
     return this.nextBeforeCursor;
   }
 
+  public async hasNextPage(): Promise<boolean> {
+    return (await this.getNextAfterCursor()) != null;
+  }
+
+  public async hasPrevPage(): Promise<boolean> {
+    return (await this.getNextBeforeCursor()) != null;
+  }
+
   @Memoize()
   public async paginate(): Promise<IEdgeType<Entity>[]> {
     const entities = await this.appendPagingQuery().getMany();

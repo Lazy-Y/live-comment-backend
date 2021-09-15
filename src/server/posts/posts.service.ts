@@ -28,10 +28,7 @@ export class PostsService {
     return new PaginatedPost(this.postsRepository.createQueryBuilder(Post.name.toLowerCase()), {
       entity: Post,
       paginationKeys: ['id'],
-      query: {
-        order: 'ASC',
-        ...pageArgs,
-      },
+      query: pageArgs,
     });
   }
 

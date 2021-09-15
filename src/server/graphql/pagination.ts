@@ -4,6 +4,7 @@ import { Type } from '@nestjs/common';
 import { SelectQueryBuilder } from 'typeorm';
 import { buildPaginator, PaginationOptions, PagingQuery } from '../paginator';
 import Paginator, { Order } from '../paginator/Paginator';
+import PageInfo from './page_info';
 
 @InputType()
 export class PageArgs implements PagingQuery {
@@ -16,7 +17,7 @@ export class PageArgs implements PagingQuery {
   @Field({ nullable: true })
   beforeCursor?: string;
 
-  @Field({ defaultValue: 'ASC' })
+  @Field({ defaultValue: 'DESC' })
   order: Order;
 }
 
@@ -34,6 +35,7 @@ export interface IPaginatedType<T> {
   totalCount: Promise<number>;
   nextAfterCursor: Promise<string | null>;
   nextBeforeCursor: Promise<string | null>;
+  pageInfo: PageInfo<T>;
 }
 
 function Paginated<T>(classRef: Type<T>): Type<IPaginatedType<T>> {
@@ -77,6 +79,11 @@ function Paginated<T>(classRef: Type<T>): Type<IPaginatedType<T>> {
     @Field(() => String, { nullable: true })
     public get nextBeforeCursor() {
       return this.paginator.getNextBeforeCursor();
+    }
+
+    @Field(() => PageInfo)
+    public get pageInfo(): PageInfo<T> {
+      return new PageInfo(this.paginator);
     }
   }
 
