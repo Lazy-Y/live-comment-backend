@@ -6,7 +6,6 @@ import { join } from 'path';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { RenderModule } from 'nest-next';
 import Next from 'next';
-import { AppController } from './app.controller';
 
 @Module({
   imports: [
@@ -17,8 +16,6 @@ import { AppController } from './app.controller';
       sortSchema: true,
     }),
     TypeOrmModule.forRoot(),
-    RenderModule.forRootAsync(Next({ dev: process.env.NODE_ENV !== 'production' })),
   ],
-  controllers: [AppController],
 })
 export class AppModule {}

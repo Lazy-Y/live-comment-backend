@@ -30,7 +30,7 @@ type PaginatedPost {
 type Post {
   content: String!
   createdAt: DateTime!
-  id: Float!
+  id: String!
   updatedAt: DateTime!
   user: User!
 }
@@ -48,7 +48,7 @@ type Query {
 }
 
 type User {
-  id: Float!
+  id: String!
   posts: [Post!]!
   userName: String!
 }

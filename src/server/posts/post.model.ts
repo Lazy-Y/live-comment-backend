@@ -1,4 +1,4 @@
-import { Field, ObjectType } from '@nestjs/graphql';
+import { Field, Int, ObjectType } from '@nestjs/graphql';
 import { User } from 'src/server/users/user.model';
 import {
   Entity,
@@ -14,7 +14,7 @@ import {
 @Entity()
 export class Post {
   @PrimaryGeneratedColumn('increment', { type: 'int' })
-  @Field()
+  @Field(() => String)
   id: number;
 
   @Column()
