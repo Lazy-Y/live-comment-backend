@@ -2,13 +2,17 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type CreatePostResponse {
+  edge: PostEdge!
+}
+
 """
 A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
 """
 scalar DateTime
 
 type Mutation {
-  createPost(content: String!, userID: ID!): Post!
+  createPost(content: String!, userID: ID!): CreatePostResponse!
   createUser(userName: String!): User!
 }
 

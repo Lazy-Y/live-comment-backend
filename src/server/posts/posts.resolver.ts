@@ -1,10 +1,15 @@
-import { Args, Resolver, Query, Mutation, ID, Parent, ResolveField, Int } from '@nestjs/graphql';
-import { PageArgs } from 'src/server/graphql/pagination';
+import { Args, Resolver, Query, Mutation, ID, Parent, ResolveField, Int, ObjectType, Field } from '@nestjs/graphql';
 import { User } from 'src/server/users/user.model';
 import { UsersService } from 'src/server/users/users.service';
 import { Post } from './post.model';
-import { PaginatedPost } from './post.pagination.model';
+import { PaginatedPost, PostEdge } from './post.pagination.model';
 import { PostsService } from './posts.service';
+
+@ObjectType()
+class CreatePostResponse {
+  @Field()
+  edge: PostEdge;
+}
 
 @Resolver(() => Post)
 export class PostsResolver {
@@ -28,17 +33,24 @@ export class PostsResolver {
     return this.postsService.queryAll({
       limit: first,
       afterCursor: after,
-      order: 'ASC',
+      order: 'DESC',
     });
   }
 
-  @Mutation(() => Post)
+  @Mutation(() => CreatePostResponse)
   async createPost(
     @Args('userID', { type: () => ID }) userID: number,
     @Args('content') content: string,
-  ): Promise<Post> {
+  ): Promise<CreatePostResponse> {
     const user = await this.usersService.findOne(userID);
-    return await this.postsService.genCreatePost(user, content);
+    const node = await this.postsService.genCreatePost(user, content);
+    const cursor = 'TO BE IMPLEMENTED';
+    return {
+      edge: {
+        node,
+        cursor,
+      },
+    };
   }
 
   @ResolveField()
