@@ -1,3 +1,5 @@
+import React from "react"
+
 import fetchGraphQL from "pages/fetchGraphQL";
 import { useEffect } from "react";
 
@@ -14,6 +16,7 @@ const TestRelayFetch = () => {
     # ...PostItem__Post
     id
   }
+}
     `, {}).then(response => {
       // Avoid updating state if the component unmounted before the fetch completes
       console.log(response);

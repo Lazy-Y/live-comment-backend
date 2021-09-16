@@ -14,7 +14,7 @@ import {
 @Entity()
 export class Post {
   @PrimaryGeneratedColumn('increment', { type: 'int' })
-  @Field()
+  @Field(() => String)
   id: number;
 
   @Column()

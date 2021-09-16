@@ -16,8 +16,6 @@ const query = graphql`
 `
 
 const PostList = () => {
-  console.log('my post list');
-
   const data = useLazyLoadQuery(query, {});
   if (data == null) {
     return <div>Empty Post</div>

@@ -1,4 +1,4 @@
 {
-  "presets": ["@babel/env", "@babel/react"],
-  "plugins": ["relay", "@babel/plugin-proposal-class-properties"]
+  "presets": ["@babel/env", "@babel/preset-typescript", "@babel/react"],
+  "plugins": ["relay", "@babel/plugin-proposal-class-properties", "@babel/plugin-transform-runtime"]
 }

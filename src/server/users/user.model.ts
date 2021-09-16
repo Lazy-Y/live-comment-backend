@@ -6,7 +6,7 @@ import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 @Entity()
 export class User {
   @PrimaryGeneratedColumn('increment', { type: 'int' })
-  @Field()
+  @Field(() => String)
   id: number;
 
   @Column({ unique: true })
