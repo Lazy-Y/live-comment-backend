@@ -21,9 +21,7 @@ const PostList = () => {
     return <div>Empty Post</div>
   }
   console.log('data', data);
-
-  return <div />
-  // return <div>{data.allPosts.map((post) => <PostItem post={post} />)}</div>
+  return <div >My Post List</div>
 }
 
 export default PostList;
