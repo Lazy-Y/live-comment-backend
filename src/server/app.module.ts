@@ -14,6 +14,10 @@ import Next from 'next';
     GraphQLModule.forRoot({
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
       sortSchema: true,
+      installSubscriptionHandlers: true,
+      // subscriptions: {
+      //   'graphql-ws': true,
+      // },
     }),
     TypeOrmModule.forRoot(),
   ],

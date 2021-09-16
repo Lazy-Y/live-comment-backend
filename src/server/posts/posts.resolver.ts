@@ -1,9 +1,24 @@
-import { Args, Resolver, Query, Mutation, ID, Parent, ResolveField, Int, ObjectType, Field } from '@nestjs/graphql';
+import {
+  Args,
+  Resolver,
+  Query,
+  Mutation,
+  ID,
+  Parent,
+  ResolveField,
+  Int,
+  ObjectType,
+  Field,
+  Subscription,
+} from '@nestjs/graphql';
 import { User } from 'src/server/users/user.model';
 import { UsersService } from 'src/server/users/users.service';
 import { Post } from './post.model';
 import { PaginatedPost, PostEdge } from './post.pagination.model';
 import { PostsService } from './posts.service';
+import { PubSub } from 'graphql-subscriptions';
+
+const pubSub = new PubSub();
 
 @ObjectType()
 class CreatePostResponse {
@@ -45,12 +60,19 @@ export class PostsResolver {
     const user = await this.usersService.findOne(userID);
     const node = await this.postsService.genCreatePost(user, content);
     const cursor = 'TO BE IMPLEMENTED';
-    return {
+    const response = {
       edge: {
         node,
         cursor,
       },
     };
+    pubSub.publish('postAdded', { postAdded: response });
+    return response;
+  }
+
+  @Subscription(() => CreatePostResponse)
+  postAdded() {
+    return pubSub.asyncIterator('postAdded');
   }
 
   @ResolveField()

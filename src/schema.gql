@@ -52,6 +52,10 @@ type Query {
   user(id: ID!): User!
 }
 
+type Subscription {
+  postAdded: CreatePostResponse!
+}
+
 type User {
   id: String!
   posts: [Post!]!
